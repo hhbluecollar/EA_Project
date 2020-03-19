@@ -1,12 +1,14 @@
 package edu.miu.cs.cs544.domain;
 
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.beans.Transient;
 import java.util.Objects;
 
 @Entity
@@ -22,10 +24,17 @@ public class Course {
     private String name;
     @Size(max = 200)
     private String description;
-
+    private  int idTest;
     public Course() {
     }
     public Course(String code, String name, String description) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+    }
+
+    public Course(int idTest , String code, String name, String description) {
+        this.idTest = idTest;
         this.code = code;
         this.name = name;
         this.description = description;
