@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
 public class CourseController {
 
     private CourseService courseService;
@@ -23,10 +23,8 @@ public class CourseController {
     @PostMapping
    // @Secured(value = {"ROLE_ADMIN"})
     public ResponseEntity<Object> addCourse(@RequestBody @Valid Course course) {
-
         courseService.add(course);
-        //return  courseService.add(course);
-        //return "ADD SUCCESSFUL";
+
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(course.getName())
@@ -34,7 +32,7 @@ public class CourseController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/courses")
+    @GetMapping("/faculty")
     public Iterable<Course> getAllCourse() {
         return courseService.getAll();
     }
@@ -48,19 +46,18 @@ public class CourseController {
         }).orElse(null);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{name}")
     //@Secured(value = {"ROLE_ADMIN"})
-    public Course updateCourse(@PathVariable int id, @RequestBody @Valid Course newCourse) {
-        Course oldCourse = courseService.get(id).orElse(newCourse);
+    public Course updateCourse(@PathVariable String name, @RequestBody @Valid Course newCourse) {
+        Course oldCourse = courseService.getName(name).orElse(newCourse);
         oldCourse.setName(newCourse.getName());
-        oldCourse.setCode(newCourse.getCode());
         oldCourse.setDescription(newCourse.getDescription());
         return courseService.update(oldCourse);
     }
 
-    @GetMapping("/{id}")
-    public Course getCourse(@PathVariable int id) {
-        return courseService.get(id).orElseThrow(() ->
-                new NoSuchResourceException(courseService.get(id).get().getName(), Course.class));
+    @GetMapping("student/{name}")
+    public Course getCourse(@PathVariable String name) {
+        return courseService.getName(name).orElseThrow(() ->
+                new NoSuchResourceException(name, Course.class));
     }
 }
