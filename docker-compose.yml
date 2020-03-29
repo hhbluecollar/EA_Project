@@ -4,8 +4,8 @@ services:
     image: mysql:latest
     volumes:
       - /opt/mysql_data:/var/lib/mysql
-#        source: ./database
-#        target: /docker-entrypoint-initdb.d
+        source: ./database
+        target: /docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=cs544

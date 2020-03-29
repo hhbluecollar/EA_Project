@@ -24,7 +24,7 @@ public class Course {
     private String name;
     @Size(max = 200)
     private String description;
-    private  int idTest;
+   // private  int idTest;
     public Course() {
     }
     public Course(String code, String name, String description) {
@@ -33,12 +33,12 @@ public class Course {
         this.description = description;
     }
 
-    public Course(int idTest , String code, String name, String description) {
-        this.idTest = idTest;
-        this.code = code;
-        this.name = name;
-        this.description = description;
-    }
+//    public Course(int idTest , String code, String name, String description) {
+//        this.idTest = idTest;
+//        this.code = code;
+//        this.name = name;
+//        this.description = description;
+//    }
     public int getId() {
         return id;
     }
